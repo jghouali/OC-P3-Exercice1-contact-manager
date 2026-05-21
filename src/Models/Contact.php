@@ -9,6 +9,14 @@ class Contact
     private ?string $email = null;
     private ?string $phoneNumber = null;
 
+    public function __construct(?int $id = null, ?string $name = null, ?string $email = null, ?string $phoneNumber = null)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->phoneNumber = $phoneNumber;
+    }
+
     public function __toString(): string
     {
         return $this->toString();
