@@ -1,4 +1,15 @@
 <?php
+
+spl_autoload_register(static function ($fqcn): void {
+    $path = sprintf('%s.php', str_replace(['App', '\\'], ['src', '/'], $fqcn));
+    require_once $path;
+});
+
+use App\DBConnect;
+
+$pdo = (new DBConnect())->getPDO();
+var_dump($pdo);
+
 while (true) {
     $line = readline("Entrez votre commande : ");
     echo "Vous avez saisi : $line\n";
