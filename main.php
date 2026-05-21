@@ -5,10 +5,9 @@ spl_autoload_register(static function ($fqcn): void {
     require_once $path;
 });
 
-use App\DBConnect;
+use App\Models\ContactManager;
 
-$pdo = (new DBConnect())->getPDO();
-var_dump($pdo);
+$contactManager = new ContactManager();
 
 while (true) {
     $line = readline("Entrez votre commande : ");
@@ -16,6 +15,8 @@ while (true) {
     switch ($line) {
         case 'list':
             echo "affichage de la liste";
+            $contactManager->findAll();
+            //var_dump($contactManager->findAll());
             break;
         default:
             echo "help : affiche cette aide

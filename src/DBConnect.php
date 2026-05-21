@@ -6,7 +6,7 @@ use \PDO;
 
 class DBConnect
 {
-    public function __construct(private ?PDO $pdo = null) {}
+    private ?PDO $pdo = null;
 
     public function getPDO(
         ?string $host = "127.0.0.1",
