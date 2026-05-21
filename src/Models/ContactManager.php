@@ -29,7 +29,7 @@ class ContactManager
         }
 
         $this->contacts = $contacts;
-        var_dump($contacts);
+        //var_dump($contacts);
         return $this->contacts;
     }
 }

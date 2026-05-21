@@ -14,8 +14,10 @@ while (true) {
     echo "Vous avez saisi : $line\n";
     switch ($line) {
         case 'list':
-            echo "affichage de la liste";
-            $contactManager->findAll();
+            echo "affichage de la liste" . PHP_EOL;
+            foreach ($contactManager->findAll() as $contact) {
+                echo $contact . PHP_EOL;
+            }
             //var_dump($contactManager->findAll());
             break;
         default:
