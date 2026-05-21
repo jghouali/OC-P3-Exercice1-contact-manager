@@ -32,4 +32,17 @@ class ContactManager
         //var_dump($contacts);
         return $this->contacts;
     }
+
+    public function findById(int $id): Contact
+    {
+        $findByIdStatement = $this->pdo->prepare(
+            'SELECT id, name, email, phone_number
+            FROM contact
+            WHERE id = :id'
+        );
+        $findByIdStatement->bindValue(':id', $id, PDO::PARAM_INT);
+        $findByIdStatement->execute();
+        $result = $findByIdStatement->fetch();
+        return new Contact($result['id'], $result['name'], $result['email'], $result['phone_number']);
+    }
 }
