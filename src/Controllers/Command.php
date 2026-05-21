@@ -2,8 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\ContactManager;
+
 class Command
 {
+    private ContactManager $contactManager;
+
+    public function __construct()
+    {
+        $this->contactManager = new ContactManager();
+    }
+
     public function loopAndDispatch(): void
     {
         while (true) {
@@ -46,5 +55,8 @@ class Command
     public function list(): void
     {
         echo "Commande saisie : list\n";
+        foreach ($this->contactManager->findAll() as $contact) {
+            echo $contact . PHP_EOL;
+        }
     }
 }
