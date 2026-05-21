@@ -8,9 +8,7 @@ spl_autoload_register(static function ($fqcn): void {
 });
 
 use App\Controllers\Command;
-use App\Models\ContactManager;
 
-$contactManager = new ContactManager();
 $commandController = new Command();
 
 $commandController->loopAndDispatch();
