@@ -57,35 +57,24 @@ class Command
                 for ($i = 1; $i < count($commandArray); $i++) {
                     $parameters[] = $commandArray[$i];
                 }
-                $phoneNumber = $parameters[count($parameters) - 1];
+
+                $phoneNumber = array_pop($parameters);
                 if (!preg_match("/^[0-9]{1,20}$/", $phoneNumber)) {
                     echo "$phoneNumber n'est pas un N° de téléphone valide" . PHP_EOL;
                     break;
                 }
 
-                $parameters = [];
-                for ($i = 1; $i < (count($commandArray) - 1); $i++) {
-                    $parameters[] = $commandArray[$i];
-                }
-                $email = $parameters[count($parameters) - 1];
+                $email = array_pop($parameters);
                 if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email)) {
                     echo "$email n'est pas un eMail valide" . PHP_EOL;
                     break;
                 }
 
-                $parameters = [];
-                for ($i = 1; $i < (count($commandArray) - 2); $i++) {
-                    $parameters[] = $commandArray[$i];
-                }
-                $name = $parameters[0];
-                for ($i = 1; $i < (count($parameters)); $i++) {
-                    $name = $name . " " . $parameters[$i];
-                }
+                $name = implode(" ", $parameters);
                 if (!preg_match("/^[\p{L}][\p{L}\s'-]{1,149}$/u", $name)) {
                     echo "$name n'est pas un nom valide" . PHP_EOL;
                     break;
                 }
-
 
                 $this->create($name, $email, $phoneNumber);
                 break;
