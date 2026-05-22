@@ -45,4 +45,19 @@ class ContactManager
         $result = $findByIdStatement->fetch();
         return new Contact($result['id'], $result['name'], $result['email'], $result['phone_number']);
     }
+
+    public function insertContact(string $name, string $email, string $phoneNumber): bool
+    {
+        $insertContactStatement = $this->pdo->prepare(
+            'INSERT INTO contact
+            ( name, email, phone_number )
+            VALUES 
+            ( :name, :email, :phoneNumber )'
+        );
+        $insertContactStatement->bindValue(':name', $name, PDO::PARAM_STR);
+        $insertContactStatement->bindValue(':email', $email, PDO::PARAM_STR);
+        $insertContactStatement->bindValue(':phoneNumber', $phoneNumber, PDO::PARAM_STR);
+        $result = $insertContactStatement->execute();
+        return $result;
+    }
 }
