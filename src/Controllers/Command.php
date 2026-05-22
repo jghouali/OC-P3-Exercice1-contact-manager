@@ -79,7 +79,12 @@ class Command
                 $this->create($name, $email, $phoneNumber);
                 break;
             case 'delete':
-                echo "Commande saisie : delete" . PHP_EOL;
+                $id = $commandArray[1];
+                if (!ctype_digit($id)) {
+                    echo "$id n'est pas valide" . PHP_EOL;
+                    break;
+                }
+                $this->delete($id);
                 break;
             case 'quit':
                 echo "Commande saisie : quit" . PHP_EOL;
@@ -109,5 +114,11 @@ class Command
     {
         echo "Commande saisie : create $name $email $phoneNumber" . PHP_EOL;
         $this->contactManager->insertContact($name, $email, $phoneNumber);
+    }
+
+    public function delete(int $id): void
+    {
+        echo "Commande saisie : delete $id" . PHP_EOL;
+        $this->contactManager->deleteContact($id);
     }
 }

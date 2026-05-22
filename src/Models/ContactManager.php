@@ -60,4 +60,16 @@ class ContactManager
         $result = $insertContactStatement->execute();
         return $result;
     }
+
+    public function deleteContact(int $id): bool
+    {
+        $deleteContactStatement = $this->pdo->prepare(
+            'DELETE FROM contact
+            WHERE
+            id = :id'
+        );
+        $deleteContactStatement->bindValue(':id', $id, PDO::PARAM_INT);
+        $result = $deleteContactStatement->execute();
+        return $result;
+    }
 }
