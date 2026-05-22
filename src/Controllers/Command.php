@@ -87,7 +87,7 @@ class Command
                 $this->delete($id);
                 break;
             case 'quit':
-                echo "Commande saisie : quit" . PHP_EOL;
+                $this->quit();
                 break;
             default:
                 echo "Commande invalide : help" . PHP_EOL;
@@ -120,5 +120,10 @@ class Command
     {
         echo "Commande saisie : delete $id" . PHP_EOL;
         $this->contactManager->deleteContact($id);
+    }
+
+    public function quit(): void
+    {
+        exit;
     }
 }
