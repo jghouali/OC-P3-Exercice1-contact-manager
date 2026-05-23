@@ -9,6 +9,7 @@ class DBConnect
     private ?PDO $pdo = null;
 
     public function getPDO(
+        // this credential are by default, need to set by calling new getPDO()
         ?string $host = "127.0.0.1",
         ?string $db = "contact_manager",
         ?string $user = "contact_manager",

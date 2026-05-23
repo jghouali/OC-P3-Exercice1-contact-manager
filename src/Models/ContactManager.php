@@ -8,6 +8,7 @@ use \PDO;
 class ContactManager
 {
     private PDO $pdo;
+    // contacts in-memory
     private array $contacts = [];
 
     public function __construct()
@@ -64,6 +65,25 @@ class ContactManager
         $insertContactStatement->bindValue(':email', $email, PDO::PARAM_STR);
         $insertContactStatement->bindValue(':phoneNumber', $phoneNumber, PDO::PARAM_STR);
         $result = $insertContactStatement->execute();
+        return $result;
+    }
+
+    public function updateContact(int $id, string $name, string $email, string $phoneNumber): bool
+    {
+        $updateContactStatement = $this->pdo->prepare(
+            'UPDATE contact
+            SET
+                name = :name,
+                email = :email,
+                phone_number = :phoneNumber
+            WHERE 
+                id =:id'
+        );
+        $updateContactStatement->bindValue(':name', $name, PDO::PARAM_STR);
+        $updateContactStatement->bindValue(':email', $email, PDO::PARAM_STR);
+        $updateContactStatement->bindValue(':phoneNumber', $phoneNumber, PDO::PARAM_STR);
+        $updateContactStatement->bindValue(':id', $id, PDO::PARAM_INT);
+        $result = $updateContactStatement->execute();
         return $result;
     }
 
