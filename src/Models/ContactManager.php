@@ -13,6 +13,12 @@ class ContactManager
     public function __construct()
     {
         $this->pdo = (new DBConnect())->getPDO();
+        $this->contacts = $this->findAll();
+    }
+
+    public function getContacts(): array
+    {
+        return $this->contacts;
     }
 
     public function findAll(): array
@@ -25,7 +31,7 @@ class ContactManager
         //$contacts = $findAllStatement->fetchAll();
         $contacts = [];
         while ($result = $findAllStatement->fetch()) {
-            $contacts[] = new Contact($result['id'], $result['name'], $result['email'], $result['phone_number']);
+            $contacts[$result['id']] = new Contact($result['id'], $result['name'], $result['email'], $result['phone_number']);
         }
 
         $this->contacts = $contacts;
