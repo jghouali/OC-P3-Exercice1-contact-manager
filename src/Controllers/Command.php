@@ -27,16 +27,16 @@ class Command
                 continue;
             }
 
-            $this->process($line);
+            $this->dispatch($line);
         }
     }
 
-    public function process(string $command)
+    public function dispatch(string $command)
     {
         $commandArray = preg_split('/[\s,]+/', $command);
         switch ($commandArray[0]) {
             case 'help':
-                $this->helpController->help();
+                $this->helpController->displayHelp();
                 break;
             case 'list':
                 $this->list();

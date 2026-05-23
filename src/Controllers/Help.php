@@ -13,7 +13,7 @@ class Help
         $this->contactManager = $contactManager;
     }
 
-    public function help(): void
+    public function displayHelp(): void
     {
         foreach ($this->getCommand() as $command) {
             echo sprintf('%s %s : %s' . PHP_EOL, self::color($command, 'blue'), $this->getArguments($command), $this->getDescription($command));
@@ -90,8 +90,8 @@ class Help
                     echo PHP_EOL . $this->getArguments('detail');
                     return $contactsIds;
                 }
-                return array_filter($this->getCommand(), function ($a) use ($prompt) {
-                    return str_starts_with($a, $prompt);
+                return array_filter($this->getCommand(), function ($commandIteration) use ($prompt) {
+                    return str_starts_with($commandIteration, $prompt);
                 });
             }
         );
