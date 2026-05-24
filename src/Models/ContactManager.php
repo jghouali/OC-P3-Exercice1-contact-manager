@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\DBConnect;
-use \PDO;
+use PDO;
 
 class ContactManager
 {
@@ -32,7 +32,12 @@ class ContactManager
         //$contacts = $findAllStatement->fetchAll();
         $contacts = [];
         while ($result = $findAllStatement->fetch()) {
-            $contacts[$result['id']] = new Contact($result['id'], $result['name'], $result['email'], $result['phone_number']);
+            $contacts[$result['id']] = new Contact(
+                $result['id'],
+                $result['name'],
+                $result['email'],
+                $result['phone_number']
+            );
         }
 
         $this->contacts = $contacts;
@@ -50,11 +55,19 @@ class ContactManager
         $findByIdStatement->bindValue(':id', $id, PDO::PARAM_INT);
         $findByIdStatement->execute();
         $result = $findByIdStatement->fetch();
-        return new Contact($result['id'], $result['name'], $result['email'], $result['phone_number']);
+        return new Contact(
+            $result['id'],
+            $result['name'],
+            $result['email'],
+            $result['phone_number']
+        );
     }
 
-    public function insertContact(string $name, string $email, string $phoneNumber): bool
-    {
+    public function insertContact(
+        string $name,
+        string $email,
+        string $phoneNumber
+    ): bool {
         $insertContactStatement = $this->pdo->prepare(
             'INSERT INTO contact
             ( name, email, phone_number )
@@ -68,8 +81,12 @@ class ContactManager
         return $result;
     }
 
-    public function updateContact(int $id, string $name, string $email, string $phoneNumber): bool
-    {
+    public function updateContact(
+        int $id,
+        string $name,
+        string $email,
+        string $phoneNumber
+    ): bool {
         $updateContactStatement = $this->pdo->prepare(
             'UPDATE contact
             SET

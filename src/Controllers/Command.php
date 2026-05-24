@@ -182,21 +182,28 @@ class Command
         echo Help::color($contact, 'green') . PHP_EOL . PHP_EOL;
     }
 
-    public function create(string $name, string $email, string $phoneNumber): void
-    {
+    public function create(
+        string $name,
+        string $email,
+        string $phoneNumber
+    ): void {
         //echo "Commande saisie : create $name $email $phoneNumber" . PHP_EOL;
         if ($this->contactManager->insertContact($name, $email, $phoneNumber)) {
             echo Help::color("Contact $name $email $phoneNumber créé parfaitement !", 'green') . PHP_EOL . PHP_EOL;
-        };
+        }
         $this->contactManager->findAll();
     }
 
-    public function update(int $id, string $name, string $email, string $phoneNumber): void
-    {
+    public function update(
+        int $id,
+        string $name,
+        string $email,
+        string $phoneNumber
+    ): void {
         //echo "Commande saisie : update $id $name $email $phoneNumber" . PHP_EOL;
         if ($this->contactManager->updateContact($id, $name, $email, $phoneNumber)) {
             echo Help::color("Contact $id $name $email $phoneNumber mise à jour parfaitement !", 'green') . PHP_EOL . PHP_EOL;
-        };
+        }
         $this->contactManager->findAll();
     }
 
@@ -205,7 +212,7 @@ class Command
         //echo "Commande saisie : delete $id" . PHP_EOL;
         if ($this->contactManager->deleteContact($id)) {
             echo Help::color("Contact supprimé avec succès !", 'green') . PHP_EOL . PHP_EOL;
-        };
+        }
         $this->contactManager->findAll();
     }
 

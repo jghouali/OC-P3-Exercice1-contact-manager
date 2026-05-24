@@ -17,14 +17,27 @@ class Help
     public function displayHelp(): void
     {
         foreach ($this->getCommand() as $command) {
-            echo sprintf('%s %s : %s' . PHP_EOL, self::color($command, 'blue'), $this->getArguments($command), $this->getDescription($command));
+            echo sprintf(
+                '%s %s : %s' . PHP_EOL,
+                self::color($command, 'blue'),
+                $this->getArguments($command),
+                $this->getDescription($command)
+            );
         }
         echo PHP_EOL . PHP_EOL . PHP_EOL . 'Attention à la syntaxe des commandes, les espaces et virgules sont importants.' . PHP_EOL . PHP_EOL;
     }
 
     public function getCommand(): array
     {
-        return ['help', 'list', 'create', 'modify', 'delete', 'detail', 'quit'];
+        return [
+            'help',
+            'list',
+            'create',
+            'modify',
+            'delete',
+            'detail',
+            'quit'
+        ];
     }
 
     public function getDescription(string $command): string
@@ -55,7 +68,7 @@ class Help
         return $arguments[$command];
     }
 
-    static function color(string $text, string $color): string
+    public static function color(string $text, string $color): string
     {
         // Return ANSI escae sequence for color
         $colors = [
@@ -84,7 +97,7 @@ class Help
                 $contactsIds = [];
                 foreach ($contacts as $contact) {
                     $contactsIds[] = $contact->getId();
-                };
+                }
 
                 // The current line buffer
                 $line = readline_info('line_buffer');
