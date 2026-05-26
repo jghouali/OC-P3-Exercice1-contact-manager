@@ -103,24 +103,42 @@ class Help
                 $line = readline_info('line_buffer');
 
                 //Display an helper, for argument needed
-                if ($line == "delete ") {
-                    echo PHP_EOL . $this->getArguments('delete');
-                    return $contactsIds;
-                } elseif ($line == "create ") {
-                    echo PHP_EOL . $this->getArguments('create');
-                    return [''];
-                } elseif ($line == "modify ") {
-                    echo PHP_EOL . $this->getArguments('modify');
-                    return $contactsIds;
-                } elseif ($line == "detail ") {
-                    echo PHP_EOL . $this->getArguments('detail');
-                    return $contactsIds;
+                switch (trim($line)) {
+                    case 'help':
+                        return [];
+                    case 'list':
+                        return [];
+                    case 'quit':
+                        return [];
+                    case 'delete':
+                        echo PHP_EOL . $this->getArguments('delete') . PHP_EOL;
+                        echo 'Entrez votre commande (help, list, detail, create, modify, delete, quit) : ' . $line;
+                        return $contactsIds;
+                    case 'create':
+                        echo PHP_EOL . $this->getArguments('create') . PHP_EOL;
+                        echo 'Entrez votre commande (help, list, detail, create, modify, delete, quit) : ' . $line;
+                        return [''];
+                    case 'modify':
+                        echo PHP_EOL . $this->getArguments('modify') . PHP_EOL;
+                        echo 'Entrez votre commande (help, list, detail, create, modify, delete, quit) : ' . $line;
+                        return $contactsIds;
+                    case 'detail':
+                        echo PHP_EOL . $this->getArguments('detail') . PHP_EOL;
+                        echo 'Entrez votre commande (help, list, detail, create, modify, delete, quit) : ' . $line;
+                        return $contactsIds;
+                    default:
+                        if (preg_match('/(delete|modify|detail) [0-9]*$/', $line)) {
+                            return $contactsIds;
+                        }
+                        if (trim($line) === trim($prompt)) {
+                            // complete commands
+                            return array_filter($this->getCommand(), function ($commandIteration) use ($prompt) {
+                                return str_starts_with($commandIteration, $prompt);
+                            });
+                        } else {
+                            return [];
+                        }
                 }
-
-                // complete commands
-                return array_filter($this->getCommand(), function ($commandIteration) use ($prompt) {
-                    return str_starts_with($commandIteration, $prompt);
-                });
             }
         );
     }
